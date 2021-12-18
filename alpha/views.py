@@ -1,4 +1,4 @@
-from rest_framework import serializers, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
 import requests
 from rest_framework.views import APIView
@@ -6,8 +6,9 @@ from .models import Data
 from .serializer import DataSerializer
 from rest_framework.response import Response
 from datetime import datetime
-import time
-from ..app.settings import API_KEY
+import os
+
+API_KEY = os.environ.get('ALPHA_KEY')
 
 class DataAPIView(APIView):
   serializer_class = DataSerializer
@@ -45,36 +46,6 @@ class DataAPIView(APIView):
       except:
         pass
     return Response(serializer.data)
-
-
-# @api_view(['POST',])
-# def api_create(request):
-  
-#   url = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=USD&apikey={API_KEY}"
-#   api_request = requests.get(url)
-
-#   try:
-#     api_request.raise_for_status()
-#     data = api_request.json()
-#   except:
-#     return None
-
-#   data_api = data
-#   print("Fetching Data" , datetime.now())
-#   if data_api is not None:
-#     try:
-#       data_api = data_api['Realtime Currency Exchange Rate']
-#       new_data = Data.objects.create( exchange_rate=data_api['5. Exchange Rate'].replace("Z","").replace("T"," "),
-#                                 last_refreshed=data_api['6. Last Refreshed'] , 
-#                                 bid_price= data_api['8. Bid Price'], 
-#                                 ask_price= data_api['9. Ask Price'] )
-
-#       serializer = DataSerializer(new_data)
-#       serializer.save()
-#     except:
-#       pass
-#   return Response(serializer.data)
-
 
 class DataViewset(viewsets.ModelViewSet):
   serializer_class = DataSerializer
