@@ -6,7 +6,7 @@ to run the app just use :
 sudo docker-compose up
 
 please add your .env file
-ALPHA_KEY=your_api_alpha_key(link: https://www.alphavantage.co/support/)
+ALPHA_KEY=your_api_alpha_key
 SECRET_KEY=django_secret_key
 DATABASE_NAME=alpha
 DATABASE_USER=alpha
